@@ -1,0 +1,11 @@
+[package]
+name = "hive-utilities-library"
+version = "1.1.0"
+edition = "2024"
+description = "A standard utilities library for the Hive ecosystem"
+license = "Mozilla Public License 2.0"
+
+[lib]
+name = "hive_utilities_library"
+path = "sources/library.rs"
+
