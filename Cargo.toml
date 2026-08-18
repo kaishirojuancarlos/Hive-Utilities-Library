@@ -6,6 +6,27 @@ description = "A standard utilities library for the Hive ecosystem"
 license = "Mozilla Public License 2.0"
 
 [lib]
-name = "hive_utilities_library"
+name = "hive_library"
 path = "sources/library.rs"
+
+[[bin]]
+name = "hive_tester"
+path = "sources/tester.rs"
+
+[dependencies]
+serde = {
+    version = "1",
+    features = [
+        "derive"
+    ]
+}
+ciborium = "0.2"
+toml = "1"
+
+tokio = {
+    version = "1",
+    features = [
+        "full"
+    ]
+}
 
