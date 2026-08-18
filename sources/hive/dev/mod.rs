@@ -1,6 +1,6 @@
 use crate::hive::core::Immutable;
 
-pub(crate) enum DevelopmentState
+pub enum DevelopmentState
 {
 	Alpha,
 	Beta,
