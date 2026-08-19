@@ -303,4 +303,34 @@ where
 	Ok(())
 }
 
-// TODO :   implement dropping for streams !
+pub trait HasBufferedOutputStream<T>
+where
+	T: Write + Sized
+{
+	fn into_buffered_output_stream(self) -> BufferedOutputStream<T>;
+}
+
+pub trait HasBufferedInputStream<T>
+where
+	T: Read + Sized
+{
+	fn into_buffered_input_stream(self) -> BufferedInputStream<T>;
+}
+
+impl<W> HasBufferedOutputStream<W> for W
+where
+	W: OutputStream
+{
+	fn into_buffered_output_stream(self) -> BufferedOutputStream<W> {
+		BufferedOutputStream::new(self)
+	}
+}
+
+impl<R> HasBufferedInputStream<R> for R
+where
+	R: InputStream
+{
+	fn into_buffered_input_stream(self) -> BufferedInputStream<R> {
+		BufferedInputStream::new(self)
+	}
+}

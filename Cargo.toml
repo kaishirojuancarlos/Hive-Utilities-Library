@@ -13,6 +13,22 @@ path = "sources/library.rs"
 name = "hive_tester"
 path = "sources/tester.rs"
 
+[features]
+default = [
+	"ciborium",
+	"bincode",
+	"json"
+]
+ciborium = [
+	"dep:ciborium"
+]
+bincode = [
+	"dep:bincode"
+]
+json = [
+	"dep:serde_json"
+]
+
 [dependencies]
 serde = {
     version = "1",
@@ -20,7 +36,22 @@ serde = {
         "derive"
     ]
 }
-ciborium = "0.2"
+ciborium = {
+	version = "0.2.2",
+	optional = true
+}
+bincode = {
+	version = "2.0.1",
+	features = [
+		"serde"
+	],
+	optional = true
+}
+serde_json = {
+	version = "1",
+	optional = true
+}
+
 toml = "1"
 
 tokio = {
@@ -31,3 +62,4 @@ tokio = {
 }
 
 sudo = "0.6"
+
