@@ -334,3 +334,5 @@ where
 		BufferedInputStream::new(self)
 	}
 }
+
+// TODO : implement data streams, print streams and scanners !
