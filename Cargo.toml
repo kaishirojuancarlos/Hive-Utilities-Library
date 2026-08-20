@@ -31,7 +31,7 @@ json = [
 
 [dependencies]
 serde = {
-    version = "1",
+    version = "1.0.229",
     features = [
         "derive"
     ]
@@ -48,18 +48,31 @@ bincode = {
 	optional = true
 }
 serde_json = {
-	version = "1",
+	version = "1.0.151",
 	optional = true
 }
 
-toml = "1"
+toml = "1.1.4"
 
 tokio = {
-    version = "1",
+    version = "1.53.1",
     features = [
         "full"
     ]
 }
 
-sudo = "0.6"
+# sudo = "0.6"
+
+sudo2 = "0.2.1"
+
+nix = {
+	version = "0.31.3",
+	features = [
+		"fs",
+		"process",
+		"signal",
+		"socket",
+		"term"
+	]
+}
 
