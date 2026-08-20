@@ -1,12 +1,12 @@
-use crate::hive::io::{OutputStream, StandardOutputStream};
+use crate::hive::io::StandardOutputStream;
 use crate::hive::text::{NEWLINE, TAB, WHITESPACE};
 use std::fmt::Display;
+use std::fs::{File, OpenOptions};
 use std::io::{Stdout, Write, stdout};
+use std::path::PathBuf;
 
 pub trait Logger
 {
-	type Stream: OutputStream;
-	
 	fn get_margin_size(
 		&self
 	) -> usize;
@@ -207,8 +207,6 @@ impl StandardLogger
 
 impl Logger for StandardLogger
 {
-	type Stream = StandardOutputStream<Stdout>;
-	
 	fn get_margin_size(&self) -> usize {
 		self.margin_size
 	}
@@ -237,6 +235,58 @@ impl Logger for StandardLogger
 		data.push_str(&*text.into());
 		data.push(NEWLINE);
 		self.stream.write_all(data.as_ref())
+			.unwrap();
+	}
+}
+
+pub struct FileLogger
+{
+	file: File,
+	margin_size: usize
+}
+
+impl FileLogger
+{
+	pub fn new<P>(
+		path: P
+	) -> Self
+	where
+		P: Into<PathBuf>
+	{
+		Self { file: OpenOptions::new().write(true).create(true).append(true).open(path.into()).unwrap(), margin_size: 0 }
+	}
+}
+
+impl Logger for FileLogger
+{
+	fn get_margin_size(&self) -> usize {
+		self.margin_size
+	}
+	
+	fn set_margin_size(&mut self, size: usize) {
+		let size_processed = if size < 1
+		{
+			0
+		}
+		else if size >= usize::MAX
+		{
+			usize::MAX
+		}
+		else
+		{
+			size
+		};
+		self.margin_size = size_processed;
+	}
+	
+	fn submit_log<T>(&mut self, text: T)
+	where
+		T: Into<String>
+	{
+		let mut data = String::new();
+		data.push_str(&*text.into());
+		data.push(NEWLINE);
+		self.file.write_all(data.as_ref())
 			.unwrap();
 	}
 }
