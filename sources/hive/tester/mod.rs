@@ -1,10 +1,9 @@
-use crate::hive::control::elevate_with_root_access;
+use crate::hive::log::{Logger, StandardLogger};
 
 pub fn launch_test()
 {
-	unsafe
-	{
-		elevate_with_root_access()
-			.unwrap();
-	}
+	let mut logger = StandardLogger::new();
+	logger.log_process("ALARIC!");
+	logger.increase_margin();
+	logger.log_error("0x0");
 }

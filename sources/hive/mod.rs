@@ -5,3 +5,4 @@ pub mod text;
 pub mod io;
 pub mod filesystem;
 pub mod control;
+pub mod log;
